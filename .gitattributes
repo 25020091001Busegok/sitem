@@ -1,2 +1,357 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolyom | Yıldız Temalı</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome (İkonlar için) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Renk Paleti ve Temel Ayarlar */
+        :root {
+            --primary-pink: #ff66b2; /* Canlı pembe */
+            --dark-bg: #1a0010;      /* Çok koyu mürdüm/siyah */
+            --card-bg: #2d001d;      /* Kart arka planı */
+            --text-light: #fce4ec;   /* Açık pembe/beyaz metin */
+        }
+
+        html {
+            scroll-behavior: smooth; /* Menü linklerine tıklandığında yumuşak kaydırma sağlar */
+            scroll-padding-top: 80px; /* Sabit menünün başlıkları kapatmasını engeller */
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Arka Plan Yıldız Animasyonu */
+        .stars-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            /* Basit CSS yıldız deseni */
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffb3d9, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #ff66b2, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ffb3d9, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: twinkle 4s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* Navbar Özelleştirmesi */
+        .navbar {
+            background-color: rgba(26, 0, 16, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 102, 178, 0.2);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-pink) !important;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 102, 178, 0.5);
+        }
+        .nav-link {
+            color: var(--text-light) !important;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-pink) !important;
+        }
+
+        /* Hero (Karşılama) Bölümü */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at center, rgba(77, 0, 51, 0.5) 0%, rgba(26, 0, 16, 0) 70%);
+        }
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero-title span {
+            color: var(--primary-pink);
+            text-shadow: 0 0 20px rgba(255, 102, 178, 0.6);
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        /* Özel Butonlar */
+        .btn-pink {
+            background-color: var(--primary-pink);
+            color: #fff;
+            border: 2px solid var(--primary-pink);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-pink:hover {
+            background-color: transparent;
+            color: var(--primary-pink);
+            box-shadow: 0 0 15px var(--primary-pink);
+        }
+
+        /* Bölüm Başlıkları */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            position: relative;
+        }
+        .section-title i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            animation: spin-star 5s linear infinite;
+        }
+
+        @keyframes spin-star {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Proje Kartları */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 102, 178, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 102, 178, 0.2);
+            border-color: var(--primary-pink);
+        }
+        .card-img-top {
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .card:hover .card-img-top {
+            opacity: 1;
+        }
+        .card-title {
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        /* İletişim Formu */
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 102, 178, 0.3);
+            color: #fff;
+            border-radius: 10px;
+        }
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 10px rgba(255, 102, 178, 0.3);
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0006;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 102, 178, 0.2);
+        }
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--primary-pink);
+            text-shadow: 0 0 10px var(--primary-pink);
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar">
+
+    <!-- Arka plan yıldızları -->
+    <div class="stars-bg"></div>
+
+    <!-- Menü (Navbar) -->
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home"><i class="fas fa-star"></i> Yıldız</a>
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars" style="color: var(--primary-pink);"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Hakkımda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Projeler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">İletişim</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ana Ekran (Hero) -->
+    <section id="home" class="hero-section">
+        <div class="container text-center text-lg-start">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="hero-title">Merhaba, Ben <span>İsim Soyisim</span></h1>
+                    <h2 class="hero-subtitle">Yaratıcı Tasarımcı & Geliştirici</h2>
+                    <p class="lead mb-4">Hayallerinizi dijital dünyada parlatan, modern ve kullanıcı odaklı tasarımlar üretiyorum.</p>
+                    <a href="#portfolio" class="btn btn-pink"><i class="fas fa-rocket me-2"></i>Projelerimi Keşfet</a>
+                </div>
+                <div class="col-lg-5 mt-5 mt-lg-0 text-center">
+                    <!-- Temsili bir resim veya büyük ikon -->
+                    <i class="fas fa-moon" style="font-size: 15rem; color: var(--primary-pink); text-shadow: 0 0 50px rgba(255, 102, 178, 0.4);"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hakkımda Bölümü -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title"><i class="fas fa-star"></i> Hakkımda</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="fs-5">
+                        Tasarım ve kodlamayı bir araya getirerek estetik ve fonksiyonel projeler yaratıyorum. Pembe rengin enerjisine ve yıldızların ilhamına inanarak her projeye kendi dokunuşumu ekliyorum. Kullanıcı deneyimini ön planda tutan, şık ve modern arayüzler tasarlamak benim en büyük tutkum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projeler Bölümü -->
+    <section id="portfolio" class="py-5" style="background-color: rgba(26, 0, 16, 0.5);">
+        <div class="container py-5">
+            <h2 class="section-title"><i class="fas fa-meteor"></i> Projelerim</h2>
+            <div class="row g-4">
+                
+                <!-- Proje 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/400x250/1a0010/ff66b2?text=Web+Tasarimi" class="card-img-top" alt="Proje 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Kozmetik E-Ticaret</h5>
+                            <p class="card-text">Modern, pembe tonların ağırlıkta olduğu, kullanıcı dostu bir online alışveriş platformu arayüzü.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-3">
+                            <a href="#" class="btn btn-sm btn-outline-light">Detayları Gör</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proje 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/400x250/1a0010/ff66b2?text=Mobil+Uygulama" class="card-img-top" alt="Proje 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Astroloji Uygulaması</h5>
+                            <p class="card-text">Yıldız haritaları ve günlük burç yorumları sunan, gece temalı mobil uygulama tasarımı.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-3">
+                            <a href="#" class="btn btn-sm btn-outline-light">Detayları Gör</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proje 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="https://via.placeholder.com/400x250/1a0010/ff66b2?text=Marka+Kimligi" class="card-img-top" alt="Proje 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Butik Kafe Markalaması</h5>
+                            <p class="card-text">Şık ve sevimli bir konsept arayan lokal bir kafe için logo ve sosyal medya tasarımları.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-3">
+                            <a href="#" class="btn btn-sm btn-outline-light">Detayları Gör</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim Bölümü -->
+    <section id="contact" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title"><i class="fas fa-paper-plane"></i> Benimle İletişime Geç</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-control-lg" placeholder="Adınız" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control form-control-lg" placeholder="E-posta Adresiniz" required>
+                        </div>
+                        <div class="mb-4">
+                            <textarea class="form-control form-control-lg" rows="5" placeholder="Mesajınız..." required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-pink btn-lg">Gönder <i class="fas fa-heart ms-1"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start">
+        <div class="container text-center">
+            <div class="social-icons mb-3">
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="mb-0 text-muted">&copy; 2026 Tasarım & Geliştirme. Yıldızlarla ve kahveyle yapıldı.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
